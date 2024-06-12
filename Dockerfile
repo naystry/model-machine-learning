@@ -1,13 +1,7 @@
-FROM node:20
-
-WORKDIR /app
-
-COPY package.json .
-
+FROM node:18.20.2
+WORKDIR /usr/src/app
+COPY package*.json ./
+COPY . .env 
 RUN npm install
-
 COPY . .
-
-ENV PORT 8080
-
-CMD ["npm", "run", "start"]
+CMD [ "npm", "run", "start"]

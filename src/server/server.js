@@ -27,15 +27,7 @@ const initServer = async () => {
   });
     const model = await loadModel();
     server.app.model = model;
-    server.route({
-      method: 'GET',
-      path: '/health',
-      handler: (request, h) => {
-        // Check if your application is healthy here
-        // You can add custom health check logic if needed
-        return h.response().code(200);
-      }
-    });
+  
     server.route(routes);
 
     server.ext("onPreResponse", function (request, h) {
