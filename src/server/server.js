@@ -25,10 +25,10 @@ const initServer = async () => {
       },
     },
   });
-    // const model = await loadModel();
-    // server.app.model = model;
+    const model = await loadModel();
+    server.app.model = model;
   
-    // server.route(routes);
+    server.route(routes);
 
     server.ext("onPreResponse", function (request, h) {
       const response = request.response;
