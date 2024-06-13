@@ -50,7 +50,7 @@ const color_palette = {
 const color_jewelry = {
   light: ["silver"],
   dark: ["gold"],
-  "mid-light": ["silver", "gold", "rose gold"],
+  "mid-light": ["silver"],
   "mid-dark": ["gold"],
 };
 
@@ -86,6 +86,21 @@ const postPredictHandler = async (request, h) => {
     const id = crypto.randomUUID();
     const createdAt = new Date().toISOString();
 
+    const getColorRecommendationFromDB = (predictedClassName) => {
+      return new Promise((resolve, reject) => {
+        const sql = 'SELECT color_code, color_name FROM color_palette WHERE className = ?';
+        connection.query(sql, [predictedClassName], (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        });
+      });
+    };
+
+    const recommendationFromDB = await getColorRecommendationFromDB(predictedClassName);
+
     const recommendation = getColorRecommendation(predictedClassName);
     const jewelryRecommendation = getColorJewelryRecommendation(predictedClassName);
 
@@ -96,7 +111,8 @@ const postPredictHandler = async (request, h) => {
       predictedClassIndex,
       createdAt,
       recommendation,
-      jewelryRecommendation, // Menambahkan rekomendasi perhiasan ke dalam objek newPrediction
+      jewelryRecommendation,
+      recommendation: recommendationFromDB // Menambahkan rekomendasi perhiasan ke dalam objek newPrediction
     };
 
     // await storeData(id, newPrediction);
