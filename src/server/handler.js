@@ -138,7 +138,7 @@ const postPredictHandler = async (request, h) => {
       createdAt,
       recommendation,
       jewelryRecommendation,
-      imgURL: colorPaletteImg // Menambahkan rekomendasi perhiasan ke dalam objek newPrediction
+      colorPaletteImg // Menambahkan rekomendasi perhiasan ke dalam objek newPrediction
     };
 
     // await storeData(id, newPrediction);
