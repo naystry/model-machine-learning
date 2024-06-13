@@ -19,18 +19,35 @@ let pool;
 
 
 const color_palette = {
-  light: ["#ffffff", "#ffc8dd", "#ffafcc", "#bde0fe", "#a2d2ff"],
+  light: ["https://storage.googleapis.com/color_recommendation/light/%23a2d2ff.png",
+          "https://storage.googleapis.com/color_recommendation/light/%23bde0fe.png",
+          "https://storage.googleapis.com/color_recommendation/light/%23ffafcc.png",
+          "https://storage.googleapis.com/color_recommendation/light/%23ffc8dd.png",
+          "https://storage.googleapis.com/color_recommendation/light/%23ffffff.png"],
   dark: ["#03045e", "#832161", "#363062", "#751628", "#bc455a"],
   "mid-light": ["#fff8e7", "#b91d2e", "#a2d6f9", "#fd969a", "#e6ccb2"],
   "mid-dark": ["#8c001a", "#d7c0d0", "#64113f", "#2e294e", "#f29ca3"],
+};
+
+const color_jewelry = {
+  light: "silver",
+  dark: "gold",
+  "mid-light": "rose gold",
+  "mid-dark": "gold",
 };
 
 const getColorRecommendation = (predictedClassName) => {
   return color_palette[predictedClassName] || [];
 };
 
+const getColorJewelry = (predictedClassName) => {
+  return color_jewelry[predictedClassName] || [];
+};
+
 const postPredictHandler = async (request, h) => {
   try {
+    //jwt token
+
     const { image } = request.payload;
 
     if (!image) {
@@ -50,10 +67,11 @@ const postPredictHandler = async (request, h) => {
         CLASS_NAMES
       );
 
-    const id = crypto.randomUUID();
+    //const id = crypto.randomUUID();
     const createdAt = new Date().toISOString();
 
     const recommendation = getColorRecommendation(predictedClassName);
+    const jewelryRecommendation = getColorJewelry(predictedClassName);
 
     const newPrediction = {
       id,
@@ -62,6 +80,7 @@ const postPredictHandler = async (request, h) => {
       predictedClassIndex,
       createdAt,
       recommendation,
+      jewelryRecommendation
     };
 
     // await storeData(id, newPrediction);
