@@ -18,12 +18,12 @@ const crypto = require("crypto");
 // })();
 
 
-const color_palette = {
-  light: ["#ffffff", "#ffc8dd", "#ffafcc", "#bde0fe", "#a2d2ff"],
-  dark: ["#03045e", "#832161", "#363062", "#751628", "#bc455a"],
-  "mid-light": ["#fff8e7", "#b91d2e", "#a2d6f9", "#fd969a", "#e6ccb2"],
-  "mid-dark": ["#8c001a", "#d7c0d0", "#64113f", "#2e294e", "#f29ca3"],
-};
+// const color_palette = {
+//   light: ["#ffffff", "#ffc8dd", "#ffafcc", "#bde0fe", "#a2d2ff"],
+//   dark: ["#03045e", "#832161", "#363062", "#751628", "#bc455a"],
+//   "mid-light": ["#fff8e7", "#b91d2e", "#a2d6f9", "#fd969a", "#e6ccb2"],
+//   "mid-dark": ["#8c001a", "#d7c0d0", "#64113f", "#2e294e", "#f29ca3"],
+// };
 
 // const color_jewelry = {
 //   light: ["silver"],
@@ -32,18 +32,38 @@ const color_palette = {
 //   "mid-dark": ["gold"],
 // };
 
-const getColorRecommendation = (predictedClassName) => {
-  return color_palette[predictedClassName] || [];
-};
+// const getColorRecommendation = (predictedClassName) => {
+//   return color_palette[predictedClassName] || [];
+// };
 
 // const getColorJewelry = (predictedClassName) => {
 //   return color_jewelry[predictedClassName] || [];
 // };
 
+const color_palette = {
+  light: ["#ffffff", "#ffc8dd", "#ffafcc", "#bde0fe", "#a2d2ff"],
+  dark: ["#03045e", "#832161", "#363062", "#751628", "#bc455a"],
+  "mid-light": ["#fff8e7", "#b91d2e", "#a2d6f9", "#fd969a", "#e6ccb2"],
+  "mid-dark": ["#8c001a", "#d7c0d0", "#64113f", "#2e294e", "#f29ca3"],
+};
+
+const color_jewelry = {
+  light: ["silver"],
+  dark: ["gold"],
+  "mid-light": ["silver", "gold", "rose gold"],
+  "mid-dark": ["gold"],
+};
+
+const getColorRecommendation = (predictedClassName) => {
+  return color_palette[predictedClassName] || [];
+};
+
+const getColorJewelryRecommendation = (predictedClassName) => {
+  return color_jewelry[predictedClassName] || [];
+};
+
 const postPredictHandler = async (request, h) => {
   try {
-    //jwt token
-
     const { image } = request.payload;
 
     if (!image) {
@@ -67,7 +87,7 @@ const postPredictHandler = async (request, h) => {
     const createdAt = new Date().toISOString();
 
     const recommendation = getColorRecommendation(predictedClassName);
-    //const jewelryRecommendation = getColorJewelry(predictedClassName);
+    const jewelryRecommendation = getColorJewelryRecommendation(predictedClassName);
 
     const newPrediction = {
       id,
@@ -75,8 +95,8 @@ const postPredictHandler = async (request, h) => {
       predictions,
       predictedClassIndex,
       createdAt,
-      recommendation
-     // jewelryRecommendation
+      recommendation,
+      jewelryRecommendation, // Menambahkan rekomendasi perhiasan ke dalam objek newPrediction
     };
 
     // await storeData(id, newPrediction);
@@ -95,6 +115,7 @@ const postPredictHandler = async (request, h) => {
       .code(500);
   }
 };
+
 
 
 const getPredictHistoriesHandler = async (request, h) => {
