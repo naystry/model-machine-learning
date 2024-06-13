@@ -63,7 +63,7 @@ const postPredictHandler = async (request, h) => {
         CLASS_NAMES
       );
 
-    //const id = crypto.randomUUID();
+    const id = crypto.randomUUID();
     const createdAt = new Date().toISOString();
 
     const recommendation = getColorRecommendation(predictedClassName);
