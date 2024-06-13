@@ -47,6 +47,38 @@ const color_palette = {
   "mid-dark": ["#8c001a", "#d7c0d0", "#64113f", "#2e294e", "#f29ca3"],
 };
 
+const color_palette_img = {
+  light: [
+    "https://storage.googleapis.com/color_recommendation/light/ffffff.png",
+    "https://storage.googleapis.com/color_recommendation/light/ffc8dd.png",
+    "https://storage.googleapis.com/color_recommendation/light/ffafcc.png",
+    "https://storage.googleapis.com/color_recommendation/light/bde0fe.png",
+    "https://storage.googleapis.com/color_recommendation/light/a2d2ff.png"
+  ],
+  dark: [
+    "https://storage.googleapis.com/color_recommendation/dark/03045e.png",
+    "https://storage.googleapis.com/color_recommendation/dark/832161.png",
+    "https://storage.googleapis.com/color_recommendation/dark/363062.png",
+    "https://storage.googleapis.com/color_recommendation/dark/751628.png",
+    "https://storage.googleapis.com/color_recommendation/dark/bc455a.png"
+  ],
+  "mid-light": [
+    "https://storage.googleapis.com/color_recommendation/mid-light/fff8e7.png",
+    "https://storage.googleapis.com/color_recommendation/mid-light/b91d2e.png",
+    "https://storage.googleapis.com/color_recommendation/mid-light/a2d6f9.png",
+    "https://storage.googleapis.com/color_recommendation/mid-light/fd969a.png",
+    "https://storage.googleapis.com/color_recommendation/mid-light/e6ccb2.png"
+  ],
+  "mid-dark": [
+    "https://storage.googleapis.com/color_recommendation/mid-dark/8c001a.png",
+    "https://storage.googleapis.com/color_recommendation/mid-dark/d7c0d0.png",
+    "https://storage.googleapis.com/color_recommendation/mid-dark/64113f.png",
+    "https://storage.googleapis.com/color_recommendation/mid-dark/2e294e.png",
+    "https://storage.googleapis.com/color_recommendation/mid-dark/f29ca3.png"
+  ]
+};
+
+
 const color_jewelry = {
   light: ["silver"],
   dark: ["gold"],
@@ -60,6 +92,10 @@ const getColorRecommendation = (predictedClassName) => {
 
 const getColorJewelryRecommendation = (predictedClassName) => {
   return color_jewelry[predictedClassName] || [];
+};
+
+const getColorPaletteRecommendation = (predictedClassName) => {
+  return color_palette_img[predictedClassName] || [];
 };
 
 const postPredictHandler = async (request, h) => {
@@ -86,23 +122,13 @@ const postPredictHandler = async (request, h) => {
     const id = crypto.randomUUID();
     const createdAt = new Date().toISOString();
 
-    const getColorRecommendationFromDB = (predictedClassName) => {
-      return new Promise((resolve, reject) => {
-        const sql = 'SELECT color_code, color_name FROM color_palette WHERE className = ?';
-        connection.query(sql, [predictedClassName], (error, results) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(results);
-          }
-        });
-      });
-    };
+    
 
-    const recommendationFromDB = await getColorRecommendationFromDB(predictedClassName);
+   
 
     const recommendation = getColorRecommendation(predictedClassName);
     const jewelryRecommendation = getColorJewelryRecommendation(predictedClassName);
+    const colorPaletteImg = getColorPaletteRecommendation(predictedClassName);
 
     const newPrediction = {
       id,
@@ -112,7 +138,7 @@ const postPredictHandler = async (request, h) => {
       createdAt,
       recommendation,
       jewelryRecommendation,
-      recommendation: recommendationFromDB // Menambahkan rekomendasi perhiasan ke dalam objek newPrediction
+      imgURL: colorPaletteImg // Menambahkan rekomendasi perhiasan ke dalam objek newPrediction
     };
 
     // await storeData(id, newPrediction);
