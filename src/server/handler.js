@@ -37,7 +37,7 @@ const getColorRecommendation = (predictedClassName) => {
 };
 
 const getColorJewelry = (predictedClassName) => {
-  return color_jewelry[predictedClassName] || [];
+  return color_jewelry.predictedClassName;
 };
 
 const postPredictHandler = async (request, h) => {
