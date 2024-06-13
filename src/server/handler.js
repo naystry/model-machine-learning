@@ -28,7 +28,7 @@ const color_palette = {
 // const color_jewelry = {
 //   light: ["silver"],
 //   dark: ["gold"],
-//   "mid-light": ["rose gold"],
+//   "mid-light": ["silver","gold","rose gold"],
 //   "mid-dark": ["gold"],
 // };
 
