@@ -19,11 +19,7 @@ let pool;
 
 
 const color_palette = {
-  light: ["https://storage.googleapis.com/color_recommendation/light/%23a2d2ff.png",
-          "https://storage.googleapis.com/color_recommendation/light/%23bde0fe.png",
-          "https://storage.googleapis.com/color_recommendation/light/%23ffafcc.png",
-          "https://storage.googleapis.com/color_recommendation/light/%23ffc8dd.png",
-          "https://storage.googleapis.com/color_recommendation/light/%23ffffff.png"],
+  light: ["#ffffff", "#ffc8dd", "#ffafcc", "#bde0fe", "#a2d2ff"],
   dark: ["#03045e", "#832161", "#363062", "#751628", "#bc455a"],
   "mid-light": ["#fff8e7", "#b91d2e", "#a2d6f9", "#fd969a", "#e6ccb2"],
   "mid-dark": ["#8c001a", "#d7c0d0", "#64113f", "#2e294e", "#f29ca3"],
