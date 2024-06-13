@@ -41,10 +41,10 @@ const crypto = require("crypto");
 // };
 
 const color_palette = {
-  light: ["#ffffff", "#ffc8dd", "#ffafcc", "#bde0fe", "#a2d2ff"],
-  dark: ["#03045e", "#832161", "#363062", "#751628", "#bc455a"],
-  "mid-light": ["#fff8e7", "#b91d2e", "#a2d6f9", "#fd969a", "#e6ccb2"],
-  "mid-dark": ["#8c001a", "#d7c0d0", "#64113f", "#2e294e", "#f29ca3"],
+  light: ["#ffffff", "#ffc8dd", "#ffafcc", "#bde0fe"],
+  dark: ["#03045e", "#832161", "#363062", "#751628"],
+  "mid-light": ["#fff8e7", "#b91d2e", "#a2d6f9", "#fd969a"],
+  "mid-dark": ["#8c001a", "#d7c0d0", "#64113f", "#2e294e"]
 };
 
 const color_palette_img = {
@@ -52,32 +52,27 @@ const color_palette_img = {
     "https://storage.googleapis.com/color_recommendation/light/ffffff.png",
     "https://storage.googleapis.com/color_recommendation/light/ffc8dd.png",
     "https://storage.googleapis.com/color_recommendation/light/ffafcc.png",
-    "https://storage.googleapis.com/color_recommendation/light/bde0fe.png",
-    "https://storage.googleapis.com/color_recommendation/light/a2d2ff.png"
+    "https://storage.googleapis.com/color_recommendation/light/bde0fe.png"
   ],
   dark: [
     "https://storage.googleapis.com/color_recommendation/dark/03045e.png",
     "https://storage.googleapis.com/color_recommendation/dark/832161.png",
     "https://storage.googleapis.com/color_recommendation/dark/363062.png",
-    "https://storage.googleapis.com/color_recommendation/dark/751628.png",
-    "https://storage.googleapis.com/color_recommendation/dark/bc455a.png"
+    "https://storage.googleapis.com/color_recommendation/dark/751628.png"
   ],
   "mid-light": [
     "https://storage.googleapis.com/color_recommendation/mid-light/fff8e7.png",
     "https://storage.googleapis.com/color_recommendation/mid-light/b91d2e.png",
     "https://storage.googleapis.com/color_recommendation/mid-light/a2d6f9.png",
-    "https://storage.googleapis.com/color_recommendation/mid-light/fd969a.png",
-    "https://storage.googleapis.com/color_recommendation/mid-light/e6ccb2.png"
+    "https://storage.googleapis.com/color_recommendation/mid-light/fd969a.png"
   ],
   "mid-dark": [
     "https://storage.googleapis.com/color_recommendation/mid-dark/8c001a.png",
     "https://storage.googleapis.com/color_recommendation/mid-dark/d7c0d0.png",
     "https://storage.googleapis.com/color_recommendation/mid-dark/64113f.png",
-    "https://storage.googleapis.com/color_recommendation/mid-dark/2e294e.png",
-    "https://storage.googleapis.com/color_recommendation/mid-dark/f29ca3.png"
+    "https://storage.googleapis.com/color_recommendation/mid-dark/2e294e.png"
   ]
 };
-
 
 const color_jewelry = {
   light: ["silver"],
@@ -121,10 +116,6 @@ const postPredictHandler = async (request, h) => {
 
     const id = crypto.randomUUID();
     const createdAt = new Date().toISOString();
-
-    
-
-   
 
     const recommendation = getColorRecommendation(predictedClassName);
     const jewelryRecommendation = getColorJewelryRecommendation(predictedClassName);
