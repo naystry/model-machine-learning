@@ -26,10 +26,10 @@ const color_palette = {
 };
 
 const color_jewelry = {
-  light: "silver",
-  dark: "gold",
-  "mid-light": "rose gold",
-  "mid-dark": "gold",
+  light: ["silver"],
+  dark: ["gold"],
+  "mid-light": ["rose gold"],
+  "mid-dark": ["gold"],
 };
 
 const getColorRecommendation = (predictedClassName) => {
@@ -37,7 +37,7 @@ const getColorRecommendation = (predictedClassName) => {
 };
 
 const getColorJewelry = (predictedClassName) => {
-  return color_jewelry.predictedClassName;
+  return color_jewelry[predictedClassName] || [];
 };
 
 const postPredictHandler = async (request, h) => {
